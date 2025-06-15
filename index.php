@@ -1,3 +1,7 @@
+<?php 
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -51,7 +55,14 @@
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>
 
-          <a class="cta-btn d-none d-sm-block" href="login-page.html">Login</a>
+ <?php if (isset($_SESSION['username'])): ?>
+              <div class="d-flex align-items-center">
+                <span class="me-3">Hai, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                <a class="btn btn-danger" href="logout.php">Logout</a>
+              </div>
+          <?php else: ?>
+              <a class="cta-btn d-none d-sm-block" href="login-page.php">Login</a>
+          <?php endif; ?>
         </div>
       </div>
     </header>
@@ -193,92 +204,7 @@
       </section>
       <!-- /Services Section -->
 
-      <!-- Doctors Section -->
-      <section id="doctors" class="doctors section">
-        <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
-          <h2>Doctors</h2>
-          <p>Daftar dokter yang tersedia pada klinik</p>
-        </div>
-        <!-- End Section Title -->
-
-        <div class="container">
-          <div class="row gy-4">
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="team-member d-flex align-items-start">
-                <div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt="" /></div>
-                <div class="member-info">
-                  <h4>Walter White</h4>
-                  <span>Chief Medical Officer</span>
-                  <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
-                  <div class="social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""> <i class="bi bi-linkedin"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Team Member -->
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="team-member d-flex align-items-start">
-                <div class="pic"><img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt="" /></div>
-                <div class="member-info">
-                  <h4>Sarah Jhonson</h4>
-                  <span>Anesthesiologist</span>
-                  <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
-                  <div class="social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""> <i class="bi bi-linkedin"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Team Member -->
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-              <div class="team-member d-flex align-items-start">
-                <div class="pic"><img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt="" /></div>
-                <div class="member-info">
-                  <h4>William Anderson</h4>
-                  <span>Cardiology</span>
-                  <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
-                  <div class="social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""> <i class="bi bi-linkedin"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Team Member -->
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-              <div class="team-member d-flex align-items-start">
-                <div class="pic"><img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt="" /></div>
-                <div class="member-info">
-                  <h4>Amanda Jepson</h4>
-                  <span>Neurosurgeon</span>
-                  <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                  <div class="social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""> <i class="bi bi-linkedin"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Team Member -->
-          </div>
-        </div>
-      </section>
-      <!-- /Doctors Section -->
+      
     </main>
 
     <footer id="footer" class="footer light-background">
