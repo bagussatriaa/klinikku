@@ -1,5 +1,13 @@
 <?php 
   session_start();
+  if (isset($_SESSION['success'])) {
+    echo '<div class="alert alert-success alert-dismissible fade show">' . 
+    $_SESSION['success'] .
+    '  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' .
+    '</div>';
+    unset($_SESSION['success']);
+  }
+  
 ?>
 
 <!DOCTYPE html>
@@ -8,12 +16,11 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Klinik-ku</title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+    
 
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon" />
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+    <link href="../assets/img/favicon.png" rel="icon" />
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -39,7 +46,7 @@
     <header id="header" class="header sticky-top">
       <div class="branding d-flex align-items-center">
         <div class="container position-relative d-flex align-items-center justify-content-between">
-          <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <a href="index.php" class="logo d-flex align-items-center me-auto">
             <h1 class="sitename">Klinik-ku</h1>
           </a>
 
@@ -50,18 +57,23 @@
               </li>
               <li><a href="#about">About</a></li>
               <li><a href="#services">Layanan</a></li>
-              <li><a href="#doctors">Daftar Dokter</a></li>
+              <li><a href="daftarDokter/dokter.php">Daftar Dokter</a></li>
+              <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
+                <li><a href="admin/dashboard.php">Dashboard</a>
+                <?php endif; ?></li> 
             </ul>
-            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+              <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          
           </nav>
 
  <?php if (isset($_SESSION['username'])): ?>
-              <div class="d-flex align-items-center">
-                <span class="me-3">Hai, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-                <a class="btn btn-danger" href="logout.php">Logout</a>
+              <div class="d-flex align-items-center ms-4">
+                <strong class="me-3">Hai, <?php echo htmlspecialchars($_SESSION['username']);
+                 ?></strong>
+                <a class="btn btn-danger" href="auth/logout.php">Logout</a>
               </div>
           <?php else: ?>
-              <a class="cta-btn d-none d-sm-block" href="login-page.php">Login</a>
+              <a class="cta-btn d-none d-sm-block" href="auth/loginn.php">Login</a>
           <?php endif; ?>
         </div>
       </div>
@@ -155,7 +167,7 @@
           <div class="row gy-4">
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
               <div class="service-item position-relative">
-                <a href="#" class="stretched-link">
+                <a href="<?php echo isset($_SESSION['username']) ? 'booking/booking_konsultasi.php' : 'auth/loginn.php'; ?>" class="stretched-link">
                   <h3>Booking Konsultasi</h3>
                 </a>
               </div>
@@ -164,7 +176,7 @@
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
               <div class="service-item position-relative">
-                <a href="#doctors" class="stretched-link">
+                <a href="daftarDokter/dokter.php" class="stretched-link">
                   <h3>Daftar Dokter</h3>
                 </a>
               </div>
@@ -173,7 +185,7 @@
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
               <div class="service-item position-relative">
-                <a href="#" class="stretched-link">
+                <a href="<?php echo isset($_SESSION['username']) ? 'rekamMedis/rekammedis.php' : 'auth/loginn.php'; ?>" class="stretched-link">
                   <h3>Rekam Medis</h3>
                 </a>
               </div>
@@ -182,23 +194,24 @@
 
             <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="400">
               <div class="service-item position-relative">
-                <a href="ruangan.php" class="stretched-link">
+                <a href="ruangan/ruangan.php" class="stretched-link">
                   <h3>Ruangan Tersedia</h3>
                 </a>
               </div>
             </div>
             <!-- End Service Item -->
 
-            <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="600">
-              <div class="service-item position-relative">
-                <a href="#" class="stretched-link">
-                  <h3>Riwayat Konsultasi</h3>
-                </a>
+            <!-- End Service Item -->
 
-                <a href="#" class="stretched-link"></a>
+            <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="400">
+              <div class="service-item position-relative">
+                <a href="<?php echo isset($_SESSION['username']) ? 'riwayatkonsultasi/riwayat_konsultasi.php' : 'auth/loginn.php'; ?>" class="stretched-link">
+                  <h3>Riwayat Konsultasi </h3>
+                </a>
               </div>
             </div>
             <!-- End Service Item -->
+           
           </div>
         </div>
       </section>
